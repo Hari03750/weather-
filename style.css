@@ -1,3 +1,21 @@
+/* Base Setup */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #1e1e1e;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background 0.6s ease;
+}
+
+/* Default fallback */
+body.default {
+  background: linear-gradient(to right, #232526, #414345);
+}
+
 /* Base glass card */
 .glass-card {
   border-radius: 20px;
@@ -9,7 +27,7 @@
   padding: 20px;
   max-width: 400px;
   margin: 40px auto;
-  transition: background 0.5s ease;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
 /* Temperature Themes */
@@ -32,7 +50,6 @@ body.temp-hot {
 
 /* Humidity Themes */
 body.humi-low {
-  /* Dry, clear sky */
   background: url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
   background-size: cover;
   color: #000;
@@ -44,7 +61,6 @@ body.humi-moderate {
 }
 
 body.humi-high {
-  /* Humid and cloudy */
   background: url('https://images.unsplash.com/photo-1527766833261-b09c3163a791?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
   background-size: cover;
   color: #fff;
@@ -64,6 +80,13 @@ body.wind-breezy {
 
 body.wind-windy {
   background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+/* Rainy Theme */
+body.rainy {
+  background: url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
   background-size: cover;
   color: #fff;
 }
