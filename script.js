@@ -1,34 +1,40 @@
 const apiKey = '3438e84f46d025f18d2e43fce7279ffb';
 
-function setWeatherTheme(temp, humi, wind, description) {
-  document.body.className = 'default'; // Reset all classes
+function setWeatherTheme(temp, humi, wind, weatherMain) {
+  // Reset all classes
+  document.body.className = '';
 
-  const desc = description.toLowerCase();
-
-  // Weather description-based themes
-  if (desc.includes("rain")) {
-    document.body.className = "rainy-theme";
-    return;
-  } else if (desc.includes("snow")) {
-    document.body.className = "snowy-theme";
-    return;
-  } else if (desc.includes("cloud")) {
-    document.body.className = "cloudy-theme";
-    return;
+  // Weather condition-based themes
+  switch (weatherMain) {
+    case 'Rain':
+      document.body.classList.add('rainy-theme');
+      return;
+    case 'Snow':
+      document.body.classList.add('snowy-theme');
+      return;
+    case 'Clouds':
+      document.body.classList.add('cloudy-theme');
+      return;
+    case 'Clear':
+      document.body.classList.add('clear-theme');
+      return;
+    default:
+      break;
   }
 
-  // Fallback to temperature
+  // Fallback to temperature-based themes
   if (temp <= 15) {
-    document.body.className = "temp-cold";
+    document.body.classList.add('temp-cold');
   } else if (temp <= 30) {
-    document.body.className = "temp-mild";
+    document.body.classList.add('temp-mild');
   } else {
-    document.body.className = "temp-hot";
+    document.body.classList.add('temp-hot');
   }
 }
 
 function displayWeather(data) {
   const cityName = data.name;
+  const weatherMain = data.weather[0].main;
   const description = data.weather[0].description;
   const tempC = (data.main.temp - 273.15).toFixed(1);
   const humidity = data.main.humidity;
@@ -45,13 +51,13 @@ function displayWeather(data) {
   document.getElementById("weatherResult").classList.remove("d-none");
   document.getElementById("errorMsg").textContent = "";
 
-  setWeatherTheme(parseFloat(tempC), humidity, windSpeed, description);
+  setWeatherTheme(parseFloat(tempC), humidity, windSpeed, weatherMain);
 }
 
 function showError(msg) {
   document.getElementById("weatherResult").classList.add("d-none");
   document.getElementById("errorMsg").textContent = msg;
-  document.body.className = 'default';
+  document.body.className = '';
 }
 
 async function getWeatherByCity() {
