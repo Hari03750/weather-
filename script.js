@@ -1,29 +1,39 @@
 const apiKey = '3438e84f46d025f18d2e43fce7279ffb';
 
-function setWeatherTheme(temp, humi, wind, description) {
-  document.body.className = 'default'; // Reset all classes
+function setWeatherTheme(temp, humi, wind, weatherMain) {
+  document.body.className = '';
 
-  const desc = description.toLowerCase();
-
-  // Weather description-based themes
-  if (desc.includes("rain")) {
-    document.body.className = "rainy-theme";
-    return;
-  } else if (desc.includes("snow")) {
-    document.body.className = "snowy-theme";
-    return;
-  } else if (desc.includes("cloud")) {
-    document.body.className = "cloudy-theme";
-    return;
+  // Rain-based override theme
+  if (['Rain', 'Drizzle', 'Thunderstorm'].includes(weatherMain)) {
+    document.body.classList.add('rainy');
+    return; // Skip other themes for full rainy effect
   }
 
-  // Fallback to temperature
+  // Temperature Theme
   if (temp <= 15) {
-    document.body.className = "temp-cold";
+    document.body.classList.add('temp-cold');
   } else if (temp <= 30) {
-    document.body.className = "temp-mild";
+    document.body.classList.add('temp-mild');
   } else {
-    document.body.className = "temp-hot";
+    document.body.classList.add('temp-hot');
+  }
+
+  // Humidity Theme
+  if (humi < 40) {
+    document.body.classList.add('humi-low');
+  } else if (humi <= 70) {
+    document.body.classList.add('humi-moderate');
+  } else {
+    document.body.classList.add('humi-high');
+  }
+
+  // Wind Theme
+  if (wind < 2) {
+    document.body.classList.add('wind-calm');
+  } else if (wind <= 5) {
+    document.body.classList.add('wind-breezy');
+  } else {
+    document.body.classList.add('wind-windy');
   }
 }
 
@@ -34,6 +44,7 @@ function displayWeather(data) {
   const humidity = data.main.humidity;
   const windSpeed = data.wind.speed;
   const iconCode = data.weather[0].icon;
+  const weatherMain = data.weather[0].main;
 
   document.getElementById("cityName").textContent = cityName;
   document.getElementById("description").textContent = description;
@@ -45,7 +56,7 @@ function displayWeather(data) {
   document.getElementById("weatherResult").classList.remove("d-none");
   document.getElementById("errorMsg").textContent = "";
 
-  setWeatherTheme(parseFloat(tempC), humidity, windSpeed, description);
+  setWeatherTheme(parseFloat(tempC), humidity, windSpeed, weatherMain);
 }
 
 function showError(msg) {
