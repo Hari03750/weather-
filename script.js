@@ -1,8 +1,15 @@
 const apiKey = '3438e84f46d025f18d2e43fce7279ffb';
 
-function setWeatherTheme(temp, humi, wind) {
+function setWeatherTheme(temp, humi, wind, weatherMain) {
   document.body.className = '';
 
+  // Rain-based override theme
+  if (['Rain', 'Drizzle', 'Thunderstorm'].includes(weatherMain)) {
+    document.body.classList.add('rainy');
+    return; // Skip other themes for full rainy effect
+  }
+
+  // Temperature Theme
   if (temp <= 15) {
     document.body.classList.add('temp-cold');
   } else if (temp <= 30) {
@@ -11,6 +18,7 @@ function setWeatherTheme(temp, humi, wind) {
     document.body.classList.add('temp-hot');
   }
 
+  // Humidity Theme
   if (humi < 40) {
     document.body.classList.add('humi-low');
   } else if (humi <= 70) {
@@ -19,6 +27,7 @@ function setWeatherTheme(temp, humi, wind) {
     document.body.classList.add('humi-high');
   }
 
+  // Wind Theme
   if (wind < 2) {
     document.body.classList.add('wind-calm');
   } else if (wind <= 5) {
@@ -35,6 +44,7 @@ function displayWeather(data) {
   const humidity = data.main.humidity;
   const windSpeed = data.wind.speed;
   const iconCode = data.weather[0].icon;
+  const weatherMain = data.weather[0].main;
 
   document.getElementById("cityName").textContent = cityName;
   document.getElementById("description").textContent = description;
@@ -46,13 +56,13 @@ function displayWeather(data) {
   document.getElementById("weatherResult").classList.remove("d-none");
   document.getElementById("errorMsg").textContent = "";
 
-  setWeatherTheme(parseFloat(tempC), humidity, windSpeed);
+  setWeatherTheme(parseFloat(tempC), humidity, windSpeed, weatherMain);
 }
 
 function showError(msg) {
   document.getElementById("weatherResult").classList.add("d-none");
   document.getElementById("errorMsg").textContent = msg;
-  document.body.className = '';
+  document.body.className = 'default';
 }
 
 async function getWeatherByCity() {
