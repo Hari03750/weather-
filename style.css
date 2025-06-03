@@ -1,15 +1,22 @@
-/* Base glass card */
+/* Glass card */
 .glass-card {
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(15px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  color: inherit; /* inherit color from body */
+  color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 20px;
   max-width: 400px;
   margin: 40px auto;
   transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* Default background (fallback) */
+body.default {
+  background: linear-gradient(to right, #1f4037, #99f2c8);
+  background-size: cover;
+  color: #fff;
 }
 
 /* Temperature Themes */
@@ -21,6 +28,7 @@ body.temp-cold {
 
 body.temp-mild {
   background: linear-gradient(to right, #74ebd5, #ACB6E5);
+  background-size: cover;
   color: #000;
 }
 
@@ -30,51 +38,41 @@ body.temp-hot {
   color: #fff;
 }
 
-/* Humidity Themes */
-body.humi-low {
-  background: url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-  background-size: cover;
-  color: #000;
-}
-
-body.humi-moderate {
-  background: linear-gradient(to right, #89f7fe, #66a6ff);
-  color: #000;
-}
-
-body.humi-high {
-  background: url('https://images.unsplash.com/photo-1527766833261-b09c3163a791?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+/* Weather Description Themes */
+body.rainy-theme {
+  background: url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
   background-size: cover;
   color: #fff;
 }
 
-/* Wind Themes */
-body.wind-calm {
-  background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+body.cloudy-theme {
+  background: url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+body.snowy-theme {
+  background: url('https://images.unsplash.com/photo-1608889175285-ec3a3d48c69b?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
   color: #000;
 }
 
-body.wind-breezy {
-  background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-  background-size: cover;
-  color: #fff;
-}
-
-body.wind-windy {
-  background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-  background-size: cover;
-  color: #fff;
-}
-
-/* Ensure text inside glass card always contrasts */
-.glass-card, #weatherResult, #errorMsg {
-  transition: color 0.5s ease;
-}
-
-/* Optional: style error message */
-#errorMsg {
+/* General text and layout */
+h1, p, label {
   text-align: center;
-  font-weight: bold;
-  margin-top: 20px;
-  color: #ff4c4c;
+}
+
+input, button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
 }
