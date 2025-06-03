@@ -1,26 +1,69 @@
-body {
-  background: linear-gradient(to right, #1f4037, #99f2c8);
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
+/* Base glass card */
 .glass-card {
-  width: 100%;
-  max-width: 400px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  max-width: 400px;
+  margin: 40px auto;
+  transition: background 0.5s ease;
 }
 
-input#cityInput {
-  background-color: #ffffffc2;
-  border-radius: 10px 0 0 10px;
+/* Temperature Themes */
+body.temp-cold {
+  background: url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
 }
 
-button.btn-primary {
-  border-radius: 0 10px 10px 0;
+body.temp-mild {
+  background: linear-gradient(to right, #74ebd5, #ACB6E5);
+  color: #000;
+}
+
+body.temp-hot {
+  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+/* Humidity Themes */
+body.humi-low {
+  /* Dry, clear sky */
+  background: url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #000;
+}
+
+body.humi-moderate {
+  background: linear-gradient(to right, #89f7fe, #66a6ff);
+  color: #000;
+}
+
+body.humi-high {
+  /* Humid and cloudy */
+  background: url('https://images.unsplash.com/photo-1527766833261-b09c3163a791?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+/* Wind Themes */
+body.wind-calm {
+  background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+  color: #000;
+}
+
+body.wind-breezy {
+  background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+body.wind-windy {
+  background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
 }
