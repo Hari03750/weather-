@@ -1,34 +1,29 @@
 const apiKey = '3438e84f46d025f18d2e43fce7279ffb';
 
-function setWeatherTheme(temp, humi, wind) {
-  // Clear previous classes first
-  document.body.className = '';
+function setWeatherTheme(temp, humi, wind, description) {
+  document.body.className = 'default'; // Reset all classes
 
-  // Apply temperature classes
+  const desc = description.toLowerCase();
+
+  // Weather description-based themes
+  if (desc.includes("rain")) {
+    document.body.className = "rainy-theme";
+    return;
+  } else if (desc.includes("snow")) {
+    document.body.className = "snowy-theme";
+    return;
+  } else if (desc.includes("cloud")) {
+    document.body.className = "cloudy-theme";
+    return;
+  }
+
+  // Fallback to temperature
   if (temp <= 15) {
-    document.body.classList.add('temp-cold');
+    document.body.className = "temp-cold";
   } else if (temp <= 30) {
-    document.body.classList.add('temp-mild');
+    document.body.className = "temp-mild";
   } else {
-    document.body.classList.add('temp-hot');
-  }
-
-  // Apply humidity classes
-  if (humi < 40) {
-    document.body.classList.add('humi-low');
-  } else if (humi <= 70) {
-    document.body.classList.add('humi-moderate');
-  } else {
-    document.body.classList.add('humi-high');
-  }
-
-  // Apply wind classes
-  if (wind < 2) {
-    document.body.classList.add('wind-calm');
-  } else if (wind <= 5) {
-    document.body.classList.add('wind-breezy');
-  } else {
-    document.body.classList.add('wind-windy');
+    document.body.className = "temp-hot";
   }
 }
 
@@ -50,11 +45,57 @@ function displayWeather(data) {
   document.getElementById("weatherResult").classList.remove("d-none");
   document.getElementById("errorMsg").textContent = "";
 
-  setWeatherTheme(parseFloat(tempC), humidity, windSpeed);
+  setWeatherTheme(parseFloat(tempC), humidity, windSpeed, description);
 }
 
 function showError(msg) {
   document.getElementById("weatherResult").classList.add("d-none");
   document.getElementById("errorMsg").textContent = msg;
-  document.body.className = ''; // reset background and color classes
+  document.body.className = 'default';
+}
+
+async function getWeatherByCity() {
+  const city = document.getElementById("cityInput").value.trim();
+  if (!city) return showError("Please enter a city name.");
+
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+    );
+    const data = await response.json();
+    if (data.cod === 200) {
+      displayWeather(data);
+    } else {
+      showError("City not found!");
+    }
+  } catch {
+    showError("Unable to fetch weather data.");
+  }
+}
+
+async function getWeatherByLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
+        );
+        const data = await response.json();
+        if (data.cod === 200) {
+          displayWeather(data);
+        } else {
+          showError("Weather data unavailable.");
+        }
+      } catch {
+        showError("Error getting location weather.");
+      }
+    }, () => {
+      showError("Location access denied.");
+    });
+  } else {
+    showError("Geolocation not supported.");
+  }
 }
