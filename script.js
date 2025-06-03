@@ -1,4 +1,4 @@
-const apiKey = '3438e84f46d025f18d2e43fce7279ffb'; // Your API key
+const apiKey = '3438e84f46d025f18d2e43fce7279ffb';
 
 function displayWeather(data) {
   document.getElementById("cityName").textContent = data.name;
@@ -61,6 +61,6 @@ async function getWeatherByLocation() {
       showError("Location access denied.");
     });
   } else {
-    showError("Geolocation is not supported by your browser.");
+    showError("Geolocation not supported.");
   }
 }
