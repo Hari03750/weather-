@@ -1,13 +1,22 @@
 const apiKey = '3438e84f46d025f18d2e43fce7279ffb';
 
 function setWeatherTheme(temp, humi, wind, weatherMain) {
-  document.body.className = '';
+  document.body.className = ''; // reset
 
-  // Rain-based override theme
   if (['Rain', 'Drizzle', 'Thunderstorm'].includes(weatherMain)) {
     document.body.classList.add('rainy');
-    return; // Skip other themes for full rainy effect
+    return;
   }
+
+  // Use temperature theme only (ignore humidity and wind for background)
+  if (temp <= 15) {
+    document.body.classList.add('temp-cold');
+  } else if (temp <= 30) {
+    document.body.classList.add('temp-mild');
+  } else {
+    document.body.classList.add('temp-hot');
+  }
+}
 
   // Temperature Theme
   if (temp <= 15) {
